@@ -1,0 +1,51 @@
+RAILWAY ROUTE OPTIMIZATION - UPDATE NOTES
+=========================================
+
+FEATURE ADDED
+-------------
+A dedicated Route Optimization page is now available from the GUI sidebar.
+It calculates and displays the minimum-distance path using Dijkstra's algorithm.
+
+GUI OUTPUT
+----------
+- Source and destination station autocomplete inputs.
+- Total shortest distance in kilometres.
+- Total dataset travel time in minutes for the selected path.
+- Ordered station path.
+- A connection table with train, distance and travel-time details.
+- A route visualization highlighting the path and each segment's distance.
+- Optimization result saved to database/railway.db when the database is available.
+
+LOGIC CHANGES
+-------------
+- RailwayOptimizer.shortest_distance_route() explicitly calls networkx.dijkstra_path
+  with weight="distance".
+- shortest_route() remains as a backwards-compatible alias.
+- fastest_route() explicitly calls Dijkstra with weight="travel_time".
+- Main CLI output now labels the algorithm and database record as Dijkstra.
+- The existing dataset uses distance and travel_time_min columns; the graph maps these
+  to distance and travel_time edge attributes respectively.
+
+FILES MODIFIED
+--------------
+- gui.py: added Route Optimization navigation, station selection, result metrics,
+  connection table, graph visualization and result saving.
+- optimization.py: explicit Dijkstra shortest-distance method and explicit weighted
+  Dijkstra call for fastest route.
+- main.py: calls and labels the shortest-distance Dijkstra method.
+
+VALIDATION
+----------
+- Python syntax compilation passed for the modified Python files.
+- Dataset integrity checked: 5,165 records, 734 stations, no missing source,
+  destination, distance or travel_time_min values, and no zero/negative distances.
+- Test route KOLLAM JN -> NEW DELHI produced 2,984.00 km and 4,885.00 minutes from
+  the supplied dataset; summed connection distances matched the reported total.
+- Test route JAMMU TAWI -> UDHAMPUR produced 53.00 km and 95.00 minutes.
+
+NOTES
+-----
+The route is optimized for the minimum sum of dataset distance values, not for minimum
+travel time. The displayed travel time is the sum of travel_time_min values attached to
+the selected distance-optimal route; it is not necessarily the fastest possible route.
+The graph follows the directed source -> destination connections present in the dataset.

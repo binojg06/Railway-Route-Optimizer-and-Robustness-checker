@@ -1,0 +1,20 @@
+AGA RAILWAY ROUTE OPTIMIZATION SYSTEM
+==================================================
+
+Total route records: 5165
+Unique source stations: 712
+Unique destination stations: 721
+Average distance: 547.71 km
+Average travel time: 677.29 minutes
+
+Top source stations:
+HOWRAH JN: 136
+CHENNAI BEACH: 122
+NEW DELHI: 80
+OLD DELHI: 70
+CHENNAI CENTRAL: 68
+BANGALORE CITY JN: 57
+AHMEDABAD JN: 56
+LINGAMPALLI: 54
+HYDERABAD DECCAN: 53
+DELHI H NIZAMUDDIN: 51
